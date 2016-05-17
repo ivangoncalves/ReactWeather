@@ -7,8 +7,7 @@ var ErrorModal = require('ErrorModal');
 var Weather = React.createClass({
   getInitialState: function() {
     return {
-      isLoading: false,
-
+      isLoading: false
     }
   },
   handleSearch: function(location){
@@ -16,7 +15,9 @@ var Weather = React.createClass({
 
     this.setState({
       isLoading: true,
-      errorMessage: undefined
+      errorMessage: undefined,
+      location: undefined,
+      temp: undefined
     });
 
     openWeatherMap.getTemp(location).then(function (temp) {
@@ -31,14 +32,28 @@ var Weather = React.createClass({
         errorMessage: e.message
       });
     });
-
+    
+  },
+  componentDidMount: function() {
+    var location = this.props.location.query.location;
+    if (location && location.length > 0) {
+      this.handleSearch(location);
+      window.location.hash = '#/'; //remove location from url after the search
+    }
+  },
+  componentWillReceiveProps: function(newProps) {
+    var location = newProps.location.query.location;
+    if (location && location.length > 0){
+      this.handleSearch(location);
+      window.location.hash = '#/'; //remove location from url after the search
+    }
   },
   render: function (){
     var {isLoading, temp, location, errorMessage} = this.state;
 
     function renderMessage () {
       if (isLoading) {
-        return <h3> Fetching weather ...</h3>;
+        return <h3 className="text-center"> Fetching weather ...</h3>;
       } else if (temp && location) {
         return <WeatherMessage location={location} temp={temp}/>;
       }
