@@ -4,9 +4,14 @@ var Main = require('Main');
 var Weather = require('Weather');
 var About = require('About');
 var Examples = require('Examples');
+
 //router
 //this is the new sintax ES6. its equal to var Route = require('react-router').Route;
 var {Route, Router, IndexRoute, hashHistory} = require('react-router');
+
+//app css
+require('style!css!applicationStyles');
+
 
 //Load foundation-sites
 require('style!css!foundation-sites/dist/foundation.min.css'); //css! is the loader we added
