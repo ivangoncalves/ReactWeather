@@ -9,13 +9,15 @@ var Examples = require('Examples');
 //this is the new sintax ES6. its equal to var Route = require('react-router').Route;
 var {Route, Router, IndexRoute, hashHistory} = require('react-router');
 
-//app css
-require('style!css!applicationStyles');
+//app css and add the sass loader after.
+require('style!css!sass!applicationStyles');
 
 
 //Load foundation-sites
 require('style!css!foundation-sites/dist/foundation.min.css'); //css! is the loader we added
 $(document).foundation();
+
+
 
 ReactDOM.render(
   <Router history={hashHistory}>
